@@ -11,6 +11,6 @@
 						"db_username"	=>		"root",
 						"db_password"	=>		"",
 						"db_database"	=>		"BIS",
-						"timeout"		=>		"60",
+						"timeout"		=>		"3600",
 		)
 ?>

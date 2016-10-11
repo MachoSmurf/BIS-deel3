@@ -18,17 +18,23 @@
 		$loggedIn = false;
 		if (isset($_SESSION["login"]))
 		{
-			if (($_SESSION["login"] == true) && ($_SESSION["timeout"]) < time() + $settings["timeout"])
+			if (($_SESSION["login"] == true) && (($_SESSION["lasttime"] + $settings["timeout"]) >= time()))
 			{
 				//user is logged in and timeout hasn't passed yet
-				$_SESSION["timeout"] 	= time() + $settings["timeout"];
+				$_SESSION["lasttime"] 	= time();
 				$loggedIn 				= true;
 			}
 			else
 			{
 				//user hasn't logged in or timeout has passed
 				$_SESSION = array();
-				header("Location: index.php");
+				if (!$_SESSION["login"]){
+					header("Location: index.php");
+				}
+				else{
+					//logout was due to a session timeout. Show this to avoid user confusion
+					header("Location: index.php?timeout=true");
+				}
 			}
 		}	
 		return $loggedIn;
@@ -60,7 +66,7 @@
 		{
 			//set session variables
 			$_SESSION["login"]		=	true;
-			$_SESSION["timeout"]	=	time() + $setting["timeout"];
+			$_SESSION["lasttime"]	=	time();
 			$_SESSION["username"]	=	$username;
 			$_SESSION["uID"]		=	$uID;
 			return true;
@@ -73,6 +79,9 @@
 
 	function handlePage()
 	{
+		global $settings;
+		global $dbConn;
+
 		$page = "";
 		if (isset($_GET["p"]))
 		{
