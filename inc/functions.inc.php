@@ -27,13 +27,12 @@
 			else
 			{
 				//user hasn't logged in or timeout has passed
-				$_SESSION = array();
 				if (!$_SESSION["login"]){
-					header("Location: index.php");
+					logout();
 				}
 				else{
 					//logout was due to a session timeout. Show this to avoid user confusion
-					header("Location: index.php?timeout=true");
+					logout("timeout", true);
 				}
 			}
 		}	
@@ -74,9 +73,26 @@
 	}
 
 	/**
+	*	remove the session data and redirect the user back to the loginpage
+	*
+	*	@param getVar string (optional) the GET variable that should be passed on the logout redirect
+	*
+	*	@param val string/bool/int (optional) the value that should be passed on the getVar set in the first param
+	*/
+	function logout($getVar = NULL, $val = NULL)
+	{
+		$_SESSION 	=	array();
+		if (($getVar != NULL) && ($val != NULL)){
+			header("Location: index.php?" . $getVar . "=" . $val);
+			}
+		else{
+			header("Location: index.php");
+		}
+	}
+
+	/**
 	*	fetches page information and calls the correct file
 	*/
-
 	function handlePage()
 	{
 		global $settings;
@@ -94,7 +110,7 @@
 				break;
 
 			case 'logout':
-				include "./inc/logout.inc.php";
+				logout();
 				break;
 
 			case 'voorraad':
