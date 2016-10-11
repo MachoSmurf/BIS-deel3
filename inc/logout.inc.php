@@ -5,10 +5,7 @@
 		die();
 	}
 
-	$_SESSION["login"]		=	false;
-	$_SESSION["timeout"]	=	0;
-	$_SESSION["username"]	=	"";
-	$_SESSION["uID"]		=	0;
-	$loggedIn 				= 	false;
+	$_SESSION 	=	array();
+	header("Location: index.php");
 
 ?>
