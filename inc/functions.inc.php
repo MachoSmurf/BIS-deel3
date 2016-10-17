@@ -18,21 +18,22 @@
 		$loggedIn = false;
 		if (isset($_SESSION["login"]))
 		{
-			if (($_SESSION["login"] == true) && ($_SESSION["timeout"]) < time() + $settings["timeout"])
+			if (($_SESSION["login"] == true) && (($_SESSION["lasttime"] + $settings["timeout"]) >= time()))
 			{
 				//user is logged in and timeout hasn't passed yet
-				$_SESSION["timeout"] 	= time() + $settings["timeout"];
+				$_SESSION["lasttime"] 	= time();
 				$loggedIn 				= true;
 			}
 			else
 			{
 				//user hasn't logged in or timeout has passed
-				$_SESSION["login"]		=	false;
-				$_SESSION["timeout"]	=	0;
-				$_SESSION["username"]	=	"";
-				$_SESSION["uID"]		=	0;
-				$loggedIn 				= 	false;
-				header("Location: index.php");
+				if (!$_SESSION["login"]){
+					logout();
+				}
+				else{
+					//logout was due to a session timeout. Show this to avoid user confusion
+					logout("timeout", true);
+				}
 			}
 		}	
 		return $loggedIn;
@@ -64,7 +65,7 @@
 		{
 			//set session variables
 			$_SESSION["login"]		=	true;
-			$_SESSION["timeout"]	=	time() + $setting["timeout"];
+			$_SESSION["lasttime"]	=	time();
 			$_SESSION["username"]	=	$username;
 			$_SESSION["uID"]		=	$uID;
 			return true;
@@ -72,11 +73,31 @@
 	}
 
 	/**
+	*	remove the session data and redirect the user back to the loginpage
+	*
+	*	@param getVar string (optional) the GET variable that should be passed on the logout redirect
+	*
+	*	@param val string/bool/int (optional) the value that should be passed on the getVar set in the first param
+	*/
+	function logout($getVar = NULL, $val = NULL)
+	{
+		$_SESSION 	=	array();
+		if (($getVar != NULL) && ($val != NULL)){
+			header("Location: index.php?" . $getVar . "=" . $val);
+			}
+		else{
+			header("Location: index.php");
+		}
+	}
+
+	/**
 	*	fetches page information and calls the correct file
 	*/
-
 	function handlePage()
 	{
+		global $settings;
+		global $dbConn;
+
 		$page = "";
 		if (isset($_GET["p"]))
 		{
@@ -90,7 +111,7 @@
 				break;
 
 			case 'logout':
-				include "./inc/logout.inc.php";
+				logout();
 				break;
 
 			case 'voorraad':

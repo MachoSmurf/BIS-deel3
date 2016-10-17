@@ -7,6 +7,7 @@
 
 
 	//This array store settings that can be used throughout the system
+
 	$settings = array(	"db_host"			=>		"localhost",
 						"db_username"		=>		"root",
 						"db_password"		=>		"",
