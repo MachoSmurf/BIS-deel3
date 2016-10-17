@@ -106,6 +106,7 @@
 
 		switch ($page) {
 			case 'home':
+				outputHeader("Home");
 				include "./content/home.inc.php";
 				break;
 
@@ -114,21 +115,38 @@
 				break;
 
 			case 'voorraad':
+				outputHeader("Voorraad Beheer");
 				include "./content/vrd_beheer.inc.php";
 				break;
 
 			case 'licentie':
+				outputHeader("Licentie Beheer");
 				include "./content/lic_beheer.inc.php";
 				break;
 
 			case 'systeem':
+				outputHeader("Systeem Registratie");
 				include "./content/sys_registratie.inc.php";
 				break;
 
 			default:
+				outputHeader("Home");
 				include "./content/home.inc.php";
 				break;
 		}
+	}
+
+	/**
+	 * Outputs the HTML Header with stylesheet info and page title
+	 * 
+	 * @param string $pageTitle sets the title of the HTML title tag
+	 * 
+	 */
+	function outputHeader($pageTitle)
+	{
+		global $settings;
+		$title = $settings["page_title_prefix"] . $pageTitle;
+		include './inc/header.inc.php';
 	}
 
 ?>

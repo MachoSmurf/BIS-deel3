@@ -1,0 +1,51 @@
+html, body{
+	margin: 0px;
+	height: 100%;
+}
+
+.loginWrapper{
+	background-color: #EEEEEE;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+#loginBox{
+	margin: 0 auto;
+	border: solid 1px;
+	height: 175px;
+	width: 350px;
+	background-color: #FFFFFF;
+	font-family: Verdana;
+	border-radius: 5px;
+	border-color: #FF0000;
+}
+
+#loginText{
+	font-size: 1.5em;
+	text-align: center;
+	width: 100%;
+	padding-top: 15px;
+}
+
+#loginInput{
+
+}
+
+.loginBoxText{
+	float: left;
+	padding-left: 15px;
+}
+
+.loginBoxInput{
+	float: right;
+	padding-right: 15px;
+}
+
+.loginButton{
+	width: 100%;
+	clear: both;
+	text-align: center;
+	padding-top: 10px;
+}
