@@ -5,7 +5,8 @@
 	require "./inc/functions.inc.php";
 	require "./inc/db.inc.php";
 
-	$showlogin = true;
+	$showlogin = array();
+	$showlogin[0] = true;
 
 	$dbConn = DB_connect();
 
@@ -16,29 +17,32 @@
 	}
 	else
 	{
+		$showlogin[0] = true;
 		if ((isset($_POST["submit"])) && (isset($_POST["username"])) && (isset($_POST["password"])))
 		{
 			//user is trying to login
 			if (preformLogin($_POST["username"], $_POST["password"]))
 			{
 				header("Location: ./index.php");
+				$showlogin[0] = false;
 			}
 			else
 			{
 				//wrong credentials
-				echo "wrong credentials";
+				$showlogin[0] = true;
+				$showlogin[1] = $_POST["username"];
 			}
 		}
 		else
 		{
 			//show login screen
-			?>
-			<form action = "" method="post">
-				Username: <input type="text" name="username"><br>
-				password: <input type="password" name="password"><br>
-				<input type="submit" value="Login" name="submit">
-			</form>
-			<?
+			$showlogin[0] = true;
+		}
+
+		if ($showlogin[0])
+		{
+			outputHeader("Login");
+			include './content/login.inc.php';
 		}
 	}
 
