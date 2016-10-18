@@ -8,9 +8,16 @@ if (!defined("IN_SYSTEM"))
 
 ?>
 
+<!DOCTYPE html>
+<html>
+<head>
+	<title><? echo $title; ?></title>
+	<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+</head>
+<body>
 <div class="loginWrapper">
 	<div id="loginBox">
-		<div id="loginText"><img src="./img/logo.gif" /></div>
+		<div id="loginText"><img src="./img/logo2.gif" width="184" height="66"/></div>
 		<div id="LoginInput">
 			<form action="" method="post">
 				<span class="loginBoxText">Username:</span><span class="loginBoxInput"><input type="text" name="username"></span><br>

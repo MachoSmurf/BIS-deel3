@@ -98,6 +98,9 @@
 		global $settings;
 		global $dbConn;
 
+		$breadcrumbs = array();	
+		$breadcrumbs[0] = array("Home", "<a href=\"index.php?p=home\">");
+
 		$page = "";
 		if (isset($_GET["p"]))
 		{
@@ -106,8 +109,8 @@
 
 		switch ($page) {
 			case 'home':
-				outputHeader("Home");
-				include "./content/home.inc.php";
+				outputFramework("Home");
+				include './content/home.inc.php';
 				break;
 
 			case 'logout':
@@ -115,38 +118,54 @@
 				break;
 
 			case 'voorraad':
-				outputHeader("Voorraad Beheer");
-				include "./content/vrd_beheer.inc.php";
+				outputFramework("Voorraad Beheer");		
+				include './content/vrd_beheer.inc.php';
 				break;
 
 			case 'licentie':
-				outputHeader("Licentie Beheer");
-				include "./content/lic_beheer.inc.php";
+				outputFramework("Licentie Beheer");
+				include './content/lic_beheer.inc.php';
 				break;
 
 			case 'systeem':
-				outputHeader("Systeem Registratie");
-				include "./content/sys_registratie.inc.php";
+				outputFramework("Systeem Registratie");
+				include './content/sys_registratie.inc.php';
+				break;
+
+			case 'settings':
+				outputFramework("Instellingen");
+				include './content/usrSettings.inc.php';
 				break;
 
 			default:
-				outputHeader("Home");
-				include "./content/home.inc.php";
+				outputFramework("Home");
+				include './content/home.inc.php';
 				break;
 		}
+
+		closeFramework();
 	}
 
 	/**
-	 * Outputs the HTML Header with stylesheet info and page title
+	 * Outputs the HTML framework with stylesheet info and page title
 	 * 
 	 * @param string $pageTitle sets the title of the HTML title tag
 	 * 
 	 */
-	function outputHeader($pageTitle)
+	function outputFramework($pageTitle)
 	{
 		global $settings;
-		$title = $settings["page_title_prefix"] . $pageTitle;
-		include './inc/header.inc.php';
+		$title =	$settings["page_title_prefix"] . $pageTitle;
+		include './inc/framework.inc.php';
+	}
+
+	/**
+	 * Outputs the HTML elements to close the page after the content
+	 * 
+	 */
+	function closeFramework()
+	{
+		include './inc/frameworkEnd.inc.php';
 	}
 
 ?>
