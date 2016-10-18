@@ -12,7 +12,7 @@
 
 	if (checklogin())
 	{
-		//show content		
+		//show content	
 		handlePage();
 	}
 	else
@@ -41,7 +41,7 @@
 
 		if ($showlogin[0])
 		{
-			outputHeader("Login");
+			$title	=	$settings["page_title_prefix"] . "Login";
 			include './content/login.inc.php';
 		}
 	}
