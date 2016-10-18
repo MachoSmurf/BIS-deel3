@@ -21,10 +21,10 @@
 		</div>
 		<div class="navBody">
 			<ul>
-				<li><a href="?p=home" class="active">Home</a></li>
-				<li><a href="?p=systeem">Systeemregistratie</a></li>
-				<li><a href="?p=licentie">Licentiebeheer</a></li>
-				<li><a href="?p=voorraad">Voorraadbeheer</a></li>
+				<li><a href="?p=home" <?php if ($activePage == "home") {echo "class=\"active\"";} ?> >Home</a></li>
+				<li><a href="?p=systeem" <?php if ($activePage == "systeem") {echo "class=\"active\"";} ?> >Systeemregistratie</a></li>
+				<li><a href="?p=licentie" <?php if ($activePage == "licentie") {echo "class=\"active\"";} ?> >Licentiebeheer</a></li>
+				<li><a href="?p=voorraad" <?php if ($activePage == "voorraad") {echo "class=\"active\"";} ?> >Voorraadbeheer</a></li>
 			</ul>
 		</div>
 		<div class="navFooter">

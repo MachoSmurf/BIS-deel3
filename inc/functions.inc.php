@@ -109,7 +109,7 @@
 
 		switch ($page) {
 			case 'home':
-				outputFramework("Home");
+				outputFramework("Home", "home");
 				include './content/home.inc.php';
 				break;
 
@@ -118,27 +118,27 @@
 				break;
 
 			case 'voorraad':
-				outputFramework("Voorraad Beheer");		
+				outputFramework("Voorraad Beheer", "voorraad");		
 				include './content/vrd_beheer.inc.php';
 				break;
 
 			case 'licentie':
-				outputFramework("Licentie Beheer");
+				outputFramework("Licentie Beheer", "licentie");
 				include './content/lic_beheer.inc.php';
 				break;
 
 			case 'systeem':
-				outputFramework("Systeem Registratie");
+				outputFramework("Systeem Registratie", "systeem");
 				include './content/sys_registratie.inc.php';
 				break;
 
 			case 'settings':
-				outputFramework("Instellingen");
+				outputFramework("Instellingen", "instellingen");
 				include './content/usrSettings.inc.php';
 				break;
 
 			default:
-				outputFramework("Home");
+				outputFramework("Home", "home");
 				include './content/home.inc.php';
 				break;
 		}
@@ -152,7 +152,7 @@
 	 * @param string $pageTitle sets the title of the HTML title tag
 	 * 
 	 */
-	function outputFramework($pageTitle)
+	function outputFramework($pageTitle, $activePage)
 	{
 		global $settings;
 		$title =	$settings["page_title_prefix"] . $pageTitle;
