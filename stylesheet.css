@@ -155,15 +155,13 @@ body{
 	margin-right: 5px;
 	margin-left: 5px;
 	margin-top: 5px;
-	padding-bottom: 15px;
-	padding-top: 15px;
-	padding-left: 10px;
 }
 
 .navBody li a{
 	display: block;
 	color: #252528;
 	text-decoration: none;
+	padding: 0px;
 }
 
 .navBody li a.active{

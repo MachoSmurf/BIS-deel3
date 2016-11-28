@@ -14,5 +14,6 @@
 						"db_database"		=>		"BIS",
 						"timeout"			=>		"3600",
 						"page_title_prefix"	=>		"Scholt - IT Registratie Systeem - ",
+						"salt_lenght"		=>		"64",
 		)
 ?>
