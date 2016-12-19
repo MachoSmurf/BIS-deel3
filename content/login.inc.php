@@ -15,6 +15,12 @@ if (!defined("IN_SYSTEM"))
 	<link rel="stylesheet" type="text/css" href="./stylesheet.css">
 </head>
 <body>
+<?
+	if (isset($showlogin[1]))
+	{
+		echo "wrong credentials";
+	}
+ ?>
 <div class="loginWrapper">
 	<div id="loginBox">
 		<div id="loginText"><img src="./img/logo2.gif" width="184" height="66"/></div>

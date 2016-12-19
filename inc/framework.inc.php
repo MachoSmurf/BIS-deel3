@@ -22,9 +22,19 @@
 		<div class="navBody">
 			<ul>
 				<li><a href="?p=home" <?php if ($activePage == "home") {echo "class=\"active\"";} ?> >Home</a></li>
-				<li><a href="?p=systeem" <?php if ($activePage == "systeem") {echo "class=\"active\"";} ?> >Systeemregistratie</a></li>
-				<li><a href="?p=licentie" <?php if ($activePage == "licentie") {echo "class=\"active\"";} ?> >Licentiebeheer</a></li>
-				<li><a href="?p=voorraad" <?php if ($activePage == "voorraad") {echo "class=\"active\"";} ?> >Voorraadbeheer</a></li>
+				<li><a href="?p=systeem" <?php if ($activePage == "systeem") {echo "class=\"active\"";} ?> >Systeem Registratie</a></li>
+				<li><a href="?p=licentie" <?php if ($activePage == "licentie") {echo "class=\"active\"";} ?> >Licentie Beheer</a></li>
+				<li><a href="?p=stock" <?php if ($activePage == "stock") {echo "class=\"active\"";} ?> >Voorraad Beheer</a></li>
+				<li><a href="?p=employees" <?php if ($activePage == "employees") {echo "class=\"active\"";} ?> >Medewerkers Beheer</a></li>
+				<li><a href="?p=users" <?php if ($activePage == "users") {echo "class=\"active\"";} ?> >Gebruikers Beheer</a></li>
+				<?
+				if ($_SESSION["level"] == 2)
+				{
+				?>
+				<li><a href="?p=log" <?php if ($activePage == "log") {echo "class=\"active\"";} ?> >Logboek</a></li>
+				<?
+				}
+				?>
 			</ul>
 		</div>
 		<div class="navFooter">
