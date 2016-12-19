@@ -25,6 +25,7 @@
 			{
 				header("Location: ./index.php");
 				$showlogin[0] = false;
+				addLogEntry(null, null, null, null, null, 5, null, null);
 			}
 			else
 			{

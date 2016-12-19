@@ -40,11 +40,15 @@
 
 	?>
 			
-		<form action="?p=licentie" method="post">
+		<!--<form action="?p=licentie" method="post">
 			<input type="submit" value="Software Toevoegen" name="submit">
-		</form>
+		</form>-->
 			
-	<?php		
+			
+		<div class="infoWarning">Licentiebeheer wordt in de volgende versie geimplementeerd</div>
+
+		<?php
+		/*
 		//haal huidige softwarelijst op
 		$query = $dbConn->prepare("SELECT software_id, naam, versie FROM software");
 		$query -> execute();
@@ -59,7 +63,7 @@
 			echo "</tr>";
 		}
 
-		echo "</table>";
+		echo "</table>";*/
 		
 	}
 	?>

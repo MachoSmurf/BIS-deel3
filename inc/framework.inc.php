@@ -27,6 +27,14 @@
 				<li><a href="?p=stock" <?php if ($activePage == "stock") {echo "class=\"active\"";} ?> >Voorraad Beheer</a></li>
 				<li><a href="?p=employees" <?php if ($activePage == "employees") {echo "class=\"active\"";} ?> >Medewerkers Beheer</a></li>
 				<li><a href="?p=users" <?php if ($activePage == "users") {echo "class=\"active\"";} ?> >Gebruikers Beheer</a></li>
+				<?
+				if ($_SESSION["level"] == 2)
+				{
+				?>
+				<li><a href="?p=log" <?php if ($activePage == "log") {echo "class=\"active\"";} ?> >Logboek</a></li>
+				<?
+				}
+				?>
 			</ul>
 		</div>
 		<div class="navFooter">

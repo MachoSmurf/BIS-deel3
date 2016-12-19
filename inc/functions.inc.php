@@ -68,9 +68,10 @@
 			$_SESSION["lasttime"]	=	time();
 			$_SESSION["username"]	=	$username;
 			$_SESSION["uID"]		=	$uID;
-			$_SESSION["level"]		=	$level;
+			$_SESSION["level"]		=	$level;			
 			return true;
-		}		
+		}
+
 	}
 
 	/**
@@ -82,6 +83,11 @@
 	*/
 	function logout($getVar = NULL, $val = NULL)
 	{
+		unset($_SESSION["login"]);
+		unset($_SESSION["lasttime"]);
+		unset($_SESSION["username"]);
+		unset($_SESSION["uID"]);
+		unset($_SESSION["level"]);
 		$_SESSION 	=	array();
 		if (($getVar != NULL) && ($val != NULL)){
 			header("Location: index.php?" . $getVar . "=" . $val);
@@ -148,6 +154,11 @@
 				include './content/employees.inc.php';
 				break;
 
+			case 'log':
+				outputFramework("Logboek", "log");
+				include './content/log.inc.php';
+				break;
+
 			default:
 				outputFramework("Home", "home");
 				include './content/home.inc.php';
@@ -208,7 +219,9 @@
 			$q	->	bind_param("ssissss", $username, $email, $level, $hash, $salt, $voornaam, $achternaam);
 
 			if ($q	->	execute())
-			{				
+			{			
+				$id = $q->insert_id;
+				addLogEntry($id, null, null, null, null, 1, null, null);	
 				$result = 1;
 			}
 			else
@@ -282,7 +295,9 @@
 
 			if ($q	->	execute())
 			{				
-				$result = 1;
+				$newID	=	$q->insert_id;
+				$result = 	1;
+				addLogEntry(null, null, $newID, null, null, 21, null, null);
 			}
 			else
 			{
@@ -344,7 +359,9 @@
 
 			if ($q	->	execute())
 			{				
-				$result = 1;
+				$newID	=	$q->insert_id;
+				$result = 	1;
+				addLogEntry(null, null, null, null, $newID, 41, null, null);
 			}
 			else
 			{
@@ -400,6 +417,7 @@
 				if ($stmt->execute())
 				{				
 					$result = 1;
+					
 				}
 				else
 				{
@@ -409,7 +427,103 @@
 				}
 				$stmt -> close();	
 			}
+			
+			if ($result)
+			{
+				addLogEntry(null, $typeID, null, null, null, 51, $amount, null);
+			}
 			return $result;		
 		}
 	}
+
+
+
+	/************************************************************************************
+	/*
+	/*		STOCK MANAGEMENT FUNCTIONS START HERE
+	/*
+	/***********************************************************************************/
+
+	function assignStock($employeeID, $productID)
+	{
+		global $dbConn;
+
+		//fetch an available stock ID from the database
+		$stmtFetch	=	$dbConn->prepare("SELECT ID FROM stock WHERE product_id=? AND status=1");
+		$stmtFetch	->	bind_param("i", $productID);
+		$stmtFetch	->	execute();
+		$stmtFetch	->	bind_result($stockID);
+		$stmtFetch	->	fetch();
+		$stmtFetch	->	close();
+
+		if ($stockID != null)
+		{
+			//assign this stockID to $employeeID
+			$newStatus	=	2;
+			$stmtAssign	=	$dbConn->prepare("UPDATE stock SET employee_id=?, status=? WHERE ID=?");
+			$stmtAssign	->	bind_param("iii", $employeeID, $newStatus, $stockID);
+			if ($stmtAssign	->	execute())
+			{
+				return 1;
+				addLogEntry(null, $typeID, $employeeID, null, null, 52, $newStatus, null);
+			}
+			else
+			{
+				return 2;
+			}
+		}
+		else
+		{
+			//no unasigned product available
+			return 0;
+		}		
+	}
+
+
+	function updateStatus($stockID, $newStatus)
+	{
+		global $dbConn;
+
+		$stmt	=	$dbConn->prepare("UPDATE stock SET status=?, employee_id=NULL WHERE ID=?");
+		$stmt	->	bind_param("ii", $newStatus, $stockID);
+		if ($stmt	->	execute())
+		{				
+			addLogEntry(null, $stockID, null, null, null, 52, $newStatus, null);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+	/************************************************************************************
+	/*
+	/*		LOG FUNCTIONS START HERE
+	/*
+	/***********************************************************************************/
+
+
+	function addLogEntry($userID, $stockID, $employeeID, $licenceID, $productID, $actionCode, $param1, $param2)
+	{
+		//for action code references, see actions.txt
+
+		global $dbConn;
+
+		$stmt 	=	$dbConn->prepare("INSERT INTO log (owner_id, user_id, stock_id, employee_id, licence_id, product_id, action, parameter1, parameter2) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)") or die ($dbConn->error);
+
+		$stmt 	->	bind_param("iiiiiiiss", $_SESSION["uID"], $userID, $stockID, $employeeID, $licenceID, $productID, $actionCode, $param1, $param2);
+		if ($stmt 	-> execute())
+		{
+			return true;
+		}
+		else
+		{	
+			die ($dbConn -> error);
+			return false;
+		}
+		$stmt 	->	close();
+	}
+
 ?>

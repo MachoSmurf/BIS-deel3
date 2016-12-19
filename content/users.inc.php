@@ -11,17 +11,45 @@
 		if ($_POST["submit"] == "Gebruiker Toevoegen")
 		{
 			?>
+			<div class="inputContainer">
 			<form action="?p=users" method="post">
-				Gebruikersnaam: <input type="text" name="username"><br>
-				Wachtwoord: <input type="password" name="password"><br>
-				Wachtwoord Bevestigen: <input type="password" name="passwordConf"><br>
-				Voornaam: <input type="text" name="voornaam"><br>
-				Achternaam: <input type="text" name="achternaam"><br>
-				Email: <input type="text" name="email"><br>
-				Administrator: <input type="checkbox" name="admin" value="true"><br>
-				Actief: <input type="checkbox" name="active" value="true"><br>
-				<input type="submit" name="submit" value="Voeg Toe">
+				<div class="inputLine">
+					<div class="inputLeft">Gebruikersnaam:</div>
+					<div class="inputRight"><input type="text" name="username"></div>
+				</div>
+				<div class="inputLine">
+					<div class="inputLeft">Wachtwoord:</div>
+					<div class="inputRight"><input type="password" name="password"></div>
+				</div>
+				<div class="inputLine">
+					<div class="inputLeft">Wachtwoord Bevestigen: </div>
+					<div class="inputRight"><input type="password" name="passwordConf"></div>
+				</div>
+				<div class="inputLine">
+					<div class="inputLeft">Voornaam:</div>
+					<div class="inputRight"><input type="text" name="voornaam"></div>
+				</div>
+				<div class="inputLine">
+					<div class="inputLeft">Achternaam:</div>
+					<div class="inputRight"><input type="text" name="achternaam"></div>
+				</div>
+				<div class="inputLine">
+					<div class="inputLeft">Email:</div>
+					<div class="inputRight"><input type="text" name="email"></div>
+				</div>
+				<div class="inputLine">
+					<div class="inputLeft">Administrator:</div>
+					<div class="inputRight"><input type="checkbox" name="admin" value="true"></div>
+				</div>
+				<div class="inputLine">
+					<div class="inputLeft">Actief:</div>
+					<div class="inputRight"><input type="checkbox" name="active" value="true"></div>
+				</div>
+				<div class="inputLine">
+					<div class="inputLeft"><input type="submit" name="submit" value="Voeg Toe"></div>
+				</div>
 			</form>
+			</div>
 			<?php
 		}
 		if ($_POST["submit"] == "Voeg Toe")
@@ -87,13 +115,13 @@
 
 		echo "<table>";
 		?>
-		<table>
+		<table class="tbl_standard">
 			<tr>
-				<td>ID</td>
-				<td>Username</td>
-				<td>E-Mail</td>
-				<td>Level</td>
-				<td></td>
+				<th>ID</th>
+				<th>Username</th>
+				<th>E-Mail</th>
+				<th>Level</th>
+				<th></th>
 			</tr>
 		<?
 
@@ -105,7 +133,13 @@
 				<td><? echo $username; ?></td>
 				<td><? echo $email; ?></td>
 				<td><? echo $level; ?></td>
-				<td>Edit</td>
+				<td>
+				<?
+				/*
+					if ($_SESSION["level"] == 2)
+					{ echo "Edit"; }*/
+				?>
+				</td>
 			</tr>
 			<?
 		}

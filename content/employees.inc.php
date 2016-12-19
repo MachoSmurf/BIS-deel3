@@ -11,12 +11,25 @@
 		if ($_POST["submit"] == "Medewerker Toevoegen")
 		{
 			?>
-			<form action="?p=employees" method="post">
-				Voornaam: <input type="text" name="voornaam"><br>
-				Achternaam: <input type="text" name="achternaam"><br>
-				Email: <input type="text" name="email"><br>
-				<input type="submit" name="submit" value="Voeg Toe">
-			</form>
+			<div class="inputContainer">
+				<form action="?p=employees" method="post">
+				<div class="inputLine">
+					<div class="inputLeft">Voornaam: </div>
+					<div class="inputRight"><input type="text" name="voornaam"></div>
+				</div>
+				<div class="inputLine">
+					<div class="inputLeft">Achternaam: </div>
+					<div class="inputRight"><input type="text" name="achternaam"></div>
+				</div>
+				<div class="inputLine">
+					<div class="inputLeft">Email: </div>
+					<div class="inputRight"><input type="text" name="email"></div>
+				</div>
+				<div class="inputLine">
+					<div class="inputLeft"><input type="submit" name="submit" value="Voeg Toe"></div>
+				</div>
+				</form>
+			</div>
 			<?php
 		}
 		if ($_POST["submit"] == "Voeg Toe")
@@ -63,13 +76,13 @@
 
 		echo "<table>";
 		?>
-		<table>
+		<table class="tbl_standard">
 			<tr>
-				<td>ID</td>
-				<td>Voornaam</td>
-				<td>Achternaam</td>
-				<td>Email</td>
-				<td></td>
+				<th>ID</th>
+				<th>Voornaam</th>
+				<th>Achternaam</th>
+				<th>Email</th>
+				<th></th>
 			</tr>
 		<?
 
@@ -81,7 +94,7 @@
 				<td><? echo $voornaam; ?></td>
 				<td><? echo $achternaam; ?></td>
 				<td><? echo $email; ?></td>
-				<td>Edit</td>
+				<td><!--Edit--></td>
 			</tr>
 			<?
 		}
